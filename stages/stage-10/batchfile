@@ -1,0 +1,4 @@
+load --os /home/sharad/lab/myexpos/stages/stage-10/os_startup.xsm
+load --int=7 /home/sharad/lab/myexpos/stages/stage-10/int_7.xsm
+load --init /home/sharad/lab/myexpos/stages/stage-10/user_prog.xsm
+load --int=timer /home/sharad/lab/myexpos/stages/stage-10/sample_timmer.xsm
