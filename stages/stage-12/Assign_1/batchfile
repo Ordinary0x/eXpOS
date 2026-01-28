@@ -1,0 +1,6 @@
+load --os /home/sharad/lab/myexpos/stages/stage-12/Assign_1/os_startup.xsm
+load --int=7 /home/sharad/lab/myexpos/stages/stage-11/int_7.xsm
+load --init /home/sharad/lab/myexpos/stages/stage-12/Assign_1/numbers.xsm
+load --int=timer /home/sharad/lab/myexpos/stages/stage-12/timer.xsm
+load --idle /home/sharad/lab/myexpos/stages/stage-12/Assign_1/idle_samp.xsm
+load --library /home/sharad/lab/myexpos/expl/library.lib
