@@ -1,0 +1,16 @@
+load --os /home/sharad/lab/myexpos/stages/Fixed_Files/final_os_startup.xsm
+load --int=7 /home/sharad/lab/myexpos/stages/stage-15/int_7.xsm
+load --init /home/sharad/lab/myexpos/stages/stage-16/init.xsm
+load --int=timer /home/sharad/lab/myexpos/stages/stage-14/timer.xsm
+load --idle /home/sharad/lab/myexpos/stages/stage-12/sample_idle.xsm
+load --library /home/sharad/lab/myexpos/expl/library.lib
+load --module 7 /home/sharad/lab/myexpos/stages/stage-17/boot_module.xsm
+load --int=10 /home/sharad/lab/myexpos/stages/stage-14/int_10.xsm
+load --module 5 /home/sharad/lab/myexpos/stages/stage-14/module_5.xsm
+load --module 4 /home/sharad/lab/myexpos/stages/stage-16/module_4.xsm
+load --module 0 /home/sharad/lab/myexpos/stages/stage-15/module_0.xsm
+load --int=console /home/sharad/lab/myexpos/stages/stage-16/console_interupt.xsm
+load --int=6  /home/sharad/lab/myexpos/stages/stage-16/int_6.xsm
+load --int=9 /home/sharad/lab/myexpos/stages/stage-17/int_9_exec.xsm
+load --module 1 /home/sharad/lab/myexpos/stages/stage-17/module_1.xsm
+load --module 2 /home/sharad/lab/myexpos/stages/stage-17/module_2.xsm

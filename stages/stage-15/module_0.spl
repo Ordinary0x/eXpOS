@@ -12,20 +12,19 @@ if (functionNum == 8)then
     endwhile;
     [TERMINAL_STATUS_TABLE] = 1;
     [TERMINAL_STATUS_TABLE + 1] = currentPID;
-    print "tst =1 bp";
     breakpoint;
     return;
-
 else
     if(functionNum ==9)then
         if(currentPID != [TERMINAL_STATUS_TABLE +1])then
+            print "wrong ";
             alias returnValue R0;
             returnValue = -1;
             return; 
         else
             [TERMINAL_STATUS_TABLE] = 0;
             alias i R3;
-            i =0 ;
+            i =1;
             while(i<16)do
                 if([PROCESS_TABLE + i*16 +4]== WAIT_TERMINAL)then
                     [PROCESS_TABLE + 16 * i + 4] = READY;
