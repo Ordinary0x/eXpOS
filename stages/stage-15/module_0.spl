@@ -17,7 +17,6 @@ if (functionNum == 8)then
 else
     if(functionNum ==9)then
         if(currentPID != [TERMINAL_STATUS_TABLE +1])then
-            print "wrong ";
             alias returnValue R0;
             returnValue = -1;
             return; 
