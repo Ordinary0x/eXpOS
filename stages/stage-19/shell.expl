@@ -4,6 +4,7 @@ decl
     int t;
 enddecl
 begin
+    write("Enter: ");
     read(fileName);
     
     t = exposcall("Exec",fileName);

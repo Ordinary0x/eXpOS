@@ -1,0 +1,182 @@
+[PROCESS_TABLE + [SYSTEM_STATUS_TABLE + 1] * 16 + 9] = 9;
+
+backup;
+alias j R15;
+j=0;
+while(j<512) do
+  [65] = [[PTBR + 16]*512 + j];
+  [66] = [[PTBR + 18]*512 + j];
+j=j+1;
+endwhile;
+
+alias userSP R0;
+userSP = SP;
+// store user stack pointer in UPTR
+[PROCESS_TABLE + [SYSTEM_STATUS_TABLE + 1] * 16 + 13] = SP;
+
+// Set SP to start of kernel stack
+SP = [PROCESS_TABLE + [SYSTEM_STATUS_TABLE + 1] * 16 + 11] * 512 - 1;
+
+alias physicalPageNum R1;
+alias offset R2;
+alias fileNamePhysicalAddr R3;
+physicalPageNum = [PTBR + 2 * ((userSP - 4)/ 512)];
+offset = (userSP - 4) % 512;
+fileNamePhysicalAddr = (physicalPageNum * 512) + offset;
+alias fileName R4;
+fileName=[fileNamePhysicalAddr];
+
+alias inode_entry R5;
+alias flag R6;
+inode_entry = 0;
+flag = 0;
+
+if (fileName == "test.xsm") then
+    restore;
+    [[PTBR + 16] * 512]= [[PTBR + 16] * 512] + 1;
+    alias j R15;
+    j=0;
+    while(j<512) do
+   [[PTBR + 16]*512 + j]= [65] ;
+   [[PTBR + 18]*512 + j] = [66];
+   
+    j=j+1;
+    endwhile;
+    ireturn;
+endif;
+
+
+while (inode_entry < MAX_FILE_NUM)do
+    if([INODE_TABLE + inode_entry * 16] == EXEC)then
+        if([INODE_TABLE + inode_entry * 16 + 1]== fileName)then
+            flag = 1;
+            break;
+        endif;
+    endif;
+    inode_entry = inode_entry+1;
+endwhile;
+print fileName;
+if(flag == 0)then 
+    alias physicalAddrRetVal R7;
+	physicalAddrRetVal = ([PTBR + 2 * ((userSP - 1) / 512)] * 512) + ((userSP - 1) % 512);
+	[physicalAddrRetVal] = -1;
+    [PROCESS_TABLE + [SYSTEM_STATUS_TABLE + 1] * 16 + 9] = 0;
+    SP = userSP;
+    ireturn;
+endif;
+
+multipush(R0,R1,R2,R3,R4,R5,R6,R7);
+
+// R1 = 3;
+// R2 = [SYSTEM_STATUS_TABLE +1];
+
+// call MOD_1;
+
+multipop(R0,R1,R2,R3,R4,R5,R6,R7);
+
+alias user_page_area R8;
+
+user_page_area = [PROCESS_TABLE + [SYSTEM_STATUS_TABLE +1]*16 +11];
+
+[MEMORY_FREE_LIST + user_page_area] = [MEMORY_FREE_LIST + user_page_area] + 1;
+
+[SYSTEM_STATUS_TABLE +2]= [SYSTEM_STATUS_TABLE +2]-1;
+
+SP = user_page_area * 512;
+
+[PROCESS_TABLE + [SYSTEM_STATUS_TABLE +1]*16 +4]= RUNNING;
+[PROCESS_TABLE + [SYSTEM_STATUS_TABLE +1]*16 +7]= inode_entry;
+
+// Library
+[PTBR + 0] = 63;
+[PTBR + 1] = "0100";
+[PTBR + 2] = 64;
+[PTBR + 3] = "0100";
+
+
+multipush(R0, R1, R2, R3, R4, R5, R6, R7, R8);
+
+// //Heap
+// [PTBR + 4] = -1;
+// [PTBR + 5] = "0000";
+
+// [PTBR + 6] = -1;
+// [PTBR + 7] = "0000";
+
+// stack
+R1 = 1;
+call MOD_2;
+[PTBR + 16] = R0;
+[PTBR + 17] = "0110";
+
+// R1 = 1;
+// call MOD_2;
+// [PTBR + 18] = R0;
+// [PTBR + 19] = "0110";
+
+
+multipop(R0, R1, R2, R3, R4, R5, R6, R7, R8);
+
+// code
+alias num_blocks R10;
+alias i R11;
+alias currentPID R12;
+currentPID = [SYSTEM_STATUS_TABLE + 1];
+
+num_blocks = (([INODE_TABLE + 16 * inode_entry + 2] - 1) / 512) + 1;
+
+print "hell0";
+print num_blocks;
+
+// Initialize disk map table
+// i = 2;
+// while (i < 10) do
+//     if (i == 2 || i == 3) then // Heap
+//         [DISK_MAP_TABLE + currentPID * 10 + i] = -1;
+//     else
+//     if (i == 8 || i == 9) then // Stack
+//         [DISK_MAP_TABLE + currentPID * 10 + i] = -1;
+//     else
+//     if (i - 4 < num_blocks) then // Code
+//         [DISK_MAP_TABLE + currentPID * 10 + i] = [INODE_TABLE + inode_entry * 16 + 8 + (i - 4)];
+//     else
+//         [DISK_MAP_TABLE + currentPID * 10 + i] = -1;
+//     endif;
+//     endif;
+//     endif;
+//     i = i + 1;
+// endwhile;
+
+multipush(R0, R1, R2, R3, R4, R5, R6, R7, R8, R9,R10,R11,R12);
+
+R1 = 5;
+R2 = [INODE_TABLE + inode_entry * 16 + 8];
+call MOD_2;
+[PTBR + 8] = R0;
+[PTBR + 9] = "0100";
+
+// i = 1;
+// while (i < 4) do
+//     [PTBR + 8 + 2 * i] = -1;
+//     [PTBR + 9 + 2 * i] = "0000";
+//     i = i + 1;
+// endwhile;
+
+multipop(R0, R1, R2, R3, R4, R5, R6, R7, R8, R9,R10);
+
+// per-process resource
+i = 1;
+while (i < 9) do
+    [([PROCESS_TABLE + [SYSTEM_STATUS_TABLE + 1] * 16 + 11] + 1) * 512 - 2 * i] = -1;
+    i = i + 1;
+endwhile;
+
+[[PTBR + 16] * 512] = [[PTBR + 8] * 512 + 1];
+
+SP = 8 * 512;
+[PROCESS_TABLE + [SYSTEM_STATUS_TABLE + 1] * 16 + 9] = 0;
+
+ireturn;
+    
+
+
