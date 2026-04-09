@@ -1,0 +1,30 @@
+load --os /home/sharad/lab/myexpos/stages/Fixed_Files/final_os_startup.xsm
+load --init /home/sharad/lab/myexpos/stages/stage-21/Assign-1/shell.xsm
+load --idle /home/sharad/lab/myexpos/stages/stage-12/sample_idle.xsm
+load --library /home/sharad/lab/myexpos/expl/library.lib
+load --int=4 /home/sharad/lab/myexpos/stages/stage-23/int_4.xsm
+load --int=5 /home/sharad/lab/myexpos/stages/stage-25/int_5.xsm
+load --int=6  /home/sharad/lab/myexpos/stages/stage-24/int_6.xsm
+load --int=7 /home/sharad/lab/myexpos/stages/stage-25/int_7.xsm
+load --int=8 /home/sharad/lab/myexpos/stages/stage-24/fork_int8.xsm
+load --int=9 /home/sharad/lab/myexpos/stages/stage-19/int_9_exec.xsm
+load --int=10 /home/sharad/lab/myexpos/stages/stage-20/int_10.xsm
+load --int=11 /home/sharad/lab/myexpos/stages/stage-21/int_11.xsm
+load --int=13 /home/sharad/lab/myexpos/stages/stage-22/int_13.xsm
+load --int=14 /home/sharad/lab/myexpos/stages/stage-22/int_14.xsm
+load --int=15 /home/sharad/lab/myexpos/stages/stage-25/int_15.xsm
+load --int=timer /home/sharad/lab/myexpos/stages/stage-14/timer.xsm
+load --int=console /home/sharad/lab/myexpos/stages/stage-16/console_interupt.xsm
+load --int=disk /home/sharad/lab/myexpos/stages/stage-19/int_2.xsm
+load --module 0 /home/sharad/lab/myexpos/stages/stage-24/module_0.xsm
+load --module 1 /home/sharad/lab/myexpos/stages/stage-25/module_1.xsm
+load --module 2 /home/sharad/lab/myexpos/stages/stage-25/module_2.xsm
+load --module 3 /home/sharad/lab/myexpos/stages/stage-25/file_manager.xsm
+load --module 4 /home/sharad/lab/myexpos/stages/stage-23/module_4.xsm
+load --module 5 /home/sharad/lab/myexpos/stages/stage-20/module_5.xsm
+load --module 7 /home/sharad/lab/myexpos/stages/stage-24/boot_module.xsm
+load --exhandler /home/sharad/lab/myexpos/stages/stage-19/exception_handler.xsm
+load --exec /home/sharad/lab/myexpos/stages/stage-25/Assign-3/assign3.xsm
+load --exec /home/sharad/lab/myexpos/stages/stage-25/Assign-1/assign1.xsm
+load --exec /home/sharad/lab/myexpos/stages/stage-25/Assign-2/assign2.xsm
+load --exec /home/sharad/lab/myexpos/stages/stage-25/Assign-4/assign4.xsm

@@ -17,7 +17,7 @@ if (sysCallNumber == 17) then // semget
         i = i + 2;
     endwhile;
 
-    if (i == 8) then // no space
+    if (i == 8) then 
         [[PTBR + 2 * ((userSP - 1) / 512)] * 512 + ((userSP - 1) % 512)] = -1;
     else
         multipush(R0, R1, R2);

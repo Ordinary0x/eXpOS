@@ -1,0 +1,37 @@
+int main(){
+decl
+    int temp,pid,a,x;
+enddecl
+begin
+    a=0;
+    while(a<2)do
+        write("Inital parent");
+        a=a+1;
+    endwhile;
+    
+    pid = exposcall("Fork");
+    pid = exposcall("Fork");
+    if (pid !=0)then
+        x = exposcall("Wait", pid);
+    else
+        a=0;
+        while(a<2)do
+            write ("child process") ;
+            a=a+1;
+        endwhile;
+        x = exposcall("Exit");
+    endif;
+
+
+    
+    // x = exposcall("Exec","pid.xsm");
+    // 
+    // temp = exposcall("Fork");
+
+    while(a < 50)do
+        write("Parent resume");
+        a=a+1;
+        endwhile;
+    return 0;
+end
+}
